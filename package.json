@@ -1,0 +1,21 @@
+{
+  "name": "order-system",
+  "version": "1.0.0",
+  "description": "This is an ecommerce order system employing blockchain concept right from placement of the order to delivery of the product. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "asp",
+    "build": "asb"
+  },
+  "keywords": [
+    "blockchain",
+    "Near",
+    "protocol",
+    "ecommerce"
+  ],
+  "author": "Paul Otieno",
+  "license": "ISC",
+  "devDependencies": {
+    "near-sdk-as": "^3.2.3"
+  }
+}
