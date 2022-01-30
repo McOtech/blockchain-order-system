@@ -11,8 +11,13 @@ export class ProductId {
   }
 
   remove(item: string): void {
-    const tIds = this.ids.filter((item) => item != item);
-    this.ids = tIds;
+    const arr = new Array<string>();
+    for (let i = 0; i < this.ids.length; i++) {
+      if (this.ids[i] != item) {
+        arr.push(this.ids[i]);
+      }
+    }
+    this.ids = arr;
   }
 
   showIds(): string[] {

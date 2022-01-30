@@ -8,7 +8,7 @@ import { ProductId } from './models/ProductId';
 import { ProductOrdered } from './models/ProductOrdered';
 
 export class Contract {
-  seller: string = 'paul-otieno.testnet';
+  seller: string = '<seller-accountId>';
 
   /**
    * ================================================================
