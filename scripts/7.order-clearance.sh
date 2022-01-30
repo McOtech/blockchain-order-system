@@ -3,7 +3,7 @@
 source ./scripts/config.conf
 
 # Depositing Near into delivery account
-near call $CONTRACT_NAME deposit --amount=100 --accountId $DELIVERY_ACCOUNT_ID
+near call $CONTRACT_NAME deposit --amount=10 --accountId $DELIVERY_ACCOUNT_ID
 
 # Clearing order of the provided order id for shipment.
 

@@ -10,12 +10,17 @@ import { ProductOrdered } from './models/ProductOrdered';
 export class Contract {
   seller: string = '<seller-accountId>';
 
-  /**
-   * ================================================================
-   * SELLER FUNCTIONS
-   * ================================================================
-   */
+  // ================================================================
+  // SELLER FUNCTIONS
+  // ================================================================
 
+  /**
+   * This is a call function that changes the state by adding a single product.
+   * @param name : Name of the product.
+   * @param price : Price of the product.
+   * @param sFee : Product's shipping fee.
+   * @returns product id.
+   */
   addProduct(name: string, price: u64, sFee: u64): string {
     assert(
       context.sender == this.seller,
@@ -41,6 +46,11 @@ export class Contract {
     return product.getId();
   }
 
+  /**
+   * A call function.
+   * It removes a single product from the Products collection.
+   * @param id product id to be removed from Products collection
+   */
   removeProduct(id: string): void {
     assert(
       context.sender == this.seller,
@@ -55,6 +65,11 @@ export class Contract {
     ProductIds.push(idStorage);
   }
 
+  /**
+   * A call function that changes order delivery state to true then initiates cash transactions of the involved parties.
+   * @param orderId : id of the order to be confirmed.
+   * @param delivery : the account-id of the delivery account.
+   */
   confirmReturn(orderId: string, delivery: string): void {
     assert(
       context.sender == this.seller,
@@ -78,12 +93,15 @@ export class Contract {
     Orders.set(order.getId(), order);
   }
 
-  /**
-   * ================================================================
-   * BUYER FUNCTIONS
-   * ================================================================
-   */
+  // ================================================================
+  // BUYER FUNCTIONS
+  // ================================================================
 
+  /**
+   * A call function to add item to cart.
+   * @param id of the product to be added to cart.
+   * @param qty : quantity of the product to be added to cart.
+   */
   addToCart(id: string, qty: u64): void {
     if (Carts.contains(context.sender)) {
       const myCart: Cart = Carts.getSome(context.sender);
@@ -94,6 +112,10 @@ export class Contract {
     }
   }
 
+  /**
+   * A call function to remove item from cart.
+   * @param id of the product to be removed from cart.
+   */
   removeFromCart(id: string): void {
     if (Carts.contains(context.sender)) {
       const myCart: Cart = Carts.getSome(context.sender);
@@ -101,6 +123,10 @@ export class Contract {
     }
   }
 
+  /**
+   * A call function to list items in cart
+   * @returns a list of items in the cart, null otherwise.
+   */
   viewCart(): Cart | null {
     if (Carts.contains(context.sender)) {
       return Carts.getSome(context.sender);
@@ -108,6 +134,12 @@ export class Contract {
     return null;
   }
 
+  /**
+   * A call function to change cart items into sales.
+   * It initiates locking of money in buyer's account for further order processing stages.
+   * @param delivery account id of the delivery person
+   * @returns order id of the just placed order.
+   */
   placeOrder(delivery: string): string {
     assert(
       Carts.contains(context.sender),
@@ -130,6 +162,11 @@ export class Contract {
     return myOrder.getId();
   }
 
+  /**
+   * A call function to confirm that products ordered have reached the intended buyer.
+   * @param orderId : id of the order whose delivery is to be confirmed.
+   * @param delivery : delivery person's account id.
+   */
   confirmDelivery(orderId: string, delivery: string): void {
     assert(Orders.contains(orderId), 'Invalid order id! Check and try again.');
     const myOrder = Orders.getSome(orderId);
@@ -140,12 +177,14 @@ export class Contract {
     Orders.set(myOrder.getId(), myOrder);
   }
 
-  /**
-   * ================================================================
-   * DELIVERY FUNCTIONS
-   * ================================================================
-   */
+  // ================================================================
+  // DELIVERY FUNCTIONS
+  // ================================================================
 
+  /**
+   * A call function to change the status of the order to have been cleared.
+   * @param orderId is the id of the order to be cleared for shipment
+   */
   clearShipment(orderId: string): void {
     assert(
       Orders.contains(orderId),
@@ -168,12 +207,14 @@ export class Contract {
     Orders.set(order.getId(), order);
   }
 
-  /**
-   * ================================================================
-   * UNIVERSAL FUNCTIONS
-   * ================================================================
-   */
+  // ================================================================
+  // UNIVERSAL FUNCTIONS
+  // ================================================================
 
+  /**
+   * A call function that retreives and displays all products' information in the collection.
+   * @returns a list of products being sold.
+   */
   showProducts(): Product[] {
     const products = new Array<Product>();
     const pIds = ProductIds[0].showIds();
@@ -183,10 +224,17 @@ export class Contract {
     return products;
   }
 
+  /**
+   * A call function to check user's active balance.
+   * @returns figure of money in user's account.
+   */
   myBalance(): u128 {
     return Accounts.activeBalance(context.sender);
   }
 
+  /**
+   * A call function to deposit money into user's active account depending on the figure of context.attachedDeposit.
+   */
   deposit(): void {
     const amount = context.attachedDeposit;
     Accounts.deposit(context.sender, amount);

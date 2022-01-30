@@ -14,4 +14,4 @@ near call $CONTRACT_NAME showProducts --accountId $SELLER_ACCOUNT_ID
 # near call $CONTRACT_NAME removeProduct "{\"id\": \"$PRODUCT_ID_TO_REMOVE_FROM_COLLECTION\"}" --accountId $SELLER_ACCOUNT_ID
 
 # Displays available products
-near view $CONTRACT_NAME showProducts --accountId $SELLER_ACCOUNT_ID
+# near view $CONTRACT_NAME showProducts --accountId $SELLER_ACCOUNT_ID

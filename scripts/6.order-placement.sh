@@ -3,7 +3,7 @@
 source ./scripts/config.conf
 
 # Deposit Near to buyer's account
-near call $CONTRACT_NAME deposit --amount=200 --accountId $BUYER_ACCOUNT_ID
+near call $CONTRACT_NAME deposit --amount=20 --accountId $BUYER_ACCOUNT_ID
 
 # Checks buyer's account balance
 near call $CONTRACT_NAME myBalance --accountId $BUYER_ACCOUNT_ID
