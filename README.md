@@ -2,6 +2,8 @@
 
 This project draws its concept from web2 online order processing systems. It utilizes Near protocol, a layer one blockchain technology, to implement a demo of the online order processing system in web3.
 
+[`Youtube Video Demo`](https://www.youtube.com/watch?v=nmh248_0UJs)
+
 # Challenges Adressed
 
 1. `Trust without assurity`: Buyers' checkout `(transfer their cash)` trusting that the sellers will deliver the commodities they have ordered. On the other hand, sellers hope that those doing deliveries will definitely deliver the commidities to their customers without any inconvenience.
